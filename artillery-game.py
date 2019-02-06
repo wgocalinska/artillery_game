@@ -6,45 +6,39 @@ from random import randint
 def position(time, initial_velocity, initial_angle, gravity_acceleration=9.81):
     """
 
-    :param time: float, in seconds
-    :param initial_velocity: float, in meters over seconds
-    :param initial_angle: int, in degrees
-    :param gravity_acceleration: float, in meters over squared of second
+    :time: float, in seconds
+    :initial_velocity: float, in meters over seconds
+    :initial_angle: int, in degrees
+    :gravity_acceleration: float, in meters over squared of second
     :return: tuple of floats, x and y coordinates
     """
     x = initial_velocity * m.cos(m.radians(initial_angle)) * time
     y = - m.pow(time, 2) * gravity_acceleration / 2 + initial_velocity * m.sin(m.radians(initial_angle)) * time
     return x, y
 
-
 def finding_total_time(initial_velocity, initial_angle, gravity_acceleration=9.81):
     """
-
-    :param initial_velocity: float, in meters over seconds
-    :param initial_angle: int, in degrees
-    :param gravity_acceleration: float, in meters over squared of second
+    :initial_velocity: float, in meters over seconds
+    :initial_angle: int, in degrees
+    :gravity_acceleration: float, in meters over squared of second
     :return: float, means total time
     """
     return initial_velocity * m.sin(m.radians(initial_angle)) * 2 / gravity_acceleration
 
-
 def calculating_final_x(initial_velocity, initial_angle, total_time):
     """
-
-    :param initial_velocity: float in meters over seconds
-    :param initial_angle: int in degrees
-    :param total_time: float in seconds
+    :initial_velocity: float in meters over seconds
+    :initial_angle: int in degrees
+    :total_time: float in seconds
     :return: float in meters
     """
     return initial_velocity * m.cos(m.radians(initial_angle)) * total_time
 
-
 def if_hit(final_x, wanted_x, range=50):
     """
-
-    :param final_x: float in m
-    :param wanted_x: int in m
-    :param range: range of explosion after hit, rounded to meters
+    :final_x: float in m
+    :wanted_x: int in m
+    :range: range of explosion after hit, rounded to meters
     :return: bool, true or false
     """
     if abs(wanted_x - final_x) <= range:
@@ -52,15 +46,12 @@ def if_hit(final_x, wanted_x, range=50):
     else:
         return False
 
-
 def getting_enemy_position_x(range=(100, 800)):
     """
-
-    :param range: tuple of ints, defines range in which enemy will be spotted
+    :range: tuple of ints, defines range in which enemy will be spotted
     :return: int, x_position of the enemy
     """
     return randint(range[0], range[1])
-
 
 def animation(initial_angle, initial_velocity, enemy_x, resolution=(1000, 600), fps=60):
     total_time = finding_total_time(initial_velocity, initial_angle)
@@ -83,7 +74,6 @@ def animation(initial_angle, initial_velocity, enemy_x, resolution=(1000, 600), 
         gameDisplay.fill(white)
     pygame.quit()
     return won
-
 
 def game(fps=60):
     black, white, red = (0, 0, 0), (255, 255, 255), (255, 0, 0)
@@ -139,6 +129,4 @@ def game(fps=60):
             pygame.draw.rect(gameDisplay, black, pygame.Rect(0, 500, 20, 20))
             pygame.display.flip()
             gameDisplay.fill(white)
-
-
 game()
