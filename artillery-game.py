@@ -21,7 +21,7 @@ def finding_total_time(init_velocity, init_angle, gravity_acc=9.81):
     :gravity_acc: float, in meters over squared of second
     :return: float, means total time
     """
-    return initial_velocity * m.sin(m.radians(init_angle)) * 2 / gravity_acceleration
+    return init_velocity * m.sin(m.radians(init_angle)) * 2 / gravity_acc
 
 def calculating_final_x(init_velocity, init_angle, total_time):
     """
@@ -105,8 +105,8 @@ def game(fps=60):
                     velocity = 45
                 if event.key == pygame.K_SPACE:
                     total_time = finding_total_time(velocity, angle)
-                    initial_velocity = velocity
-                    initial_angle = angle
+                    init_velocity = velocity
+                    init_angle = angle
                     if if_hit(calculating_final_x(velocity, angle, total_time), enemy_x):
                         Score += 1000
                     else:
