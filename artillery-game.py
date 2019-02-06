@@ -2,35 +2,35 @@ import math as m
 import pygame
 from random import randint
 
-def position(time, initial_velocity, initial_angle, gravity_acceleration=9.81):
+def position(time, init_velocity, init_angle, gravity_acc=9.81):
     """
     :time: float, in seconds
-    :initial_velocity: float, in meters over seconds
-    :initial_angle: int, in degrees
-    :gravity_acceleration: float, in meters over squared of second
+    :init_velocity: float, in meters over seconds
+    :init_angle: int, in degrees
+    :gravity_acc: float, in meters over squared of second
     :return: tuple of floats, x and y coordinates
     """
-    x = initial_velocity * m.cos(m.radians(initial_angle)) * time
-    y = - m.pow(time, 2) * gravity_acceleration / 2 + initial_velocity * m.sin(m.radians(initial_angle)) * time
+    x = init_velocity * m.cos(m.radians(init_angle)) * time
+    y = - m.pow(time, 2) * gravity_acc / 2 + init_velocity * m.sin(m.radians(init_angle)) * time
     return x, y
 
-def finding_total_time(initial_velocity, initial_angle, gravity_acceleration=9.81):
+def finding_total_time(init_velocity, init_angle, gravity_acc=9.81):
     """
-    :initial_velocity: float, in meters over seconds
-    :initial_angle: int, in degrees
-    :gravity_acceleration: float, in meters over squared of second
+    :init_velocity: float, in meters over seconds
+    :init_angle: int, in degrees
+    :gravity_acc: float, in meters over squared of second
     :return: float, means total time
     """
-    return initial_velocity * m.sin(m.radians(initial_angle)) * 2 / gravity_acceleration
+    return initial_velocity * m.sin(m.radians(init_angle)) * 2 / gravity_acceleration
 
-def calculating_final_x(initial_velocity, initial_angle, total_time):
+def calculating_final_x(init_velocity, init_angle, total_time):
     """
-    :initial_velocity: float in meters over seconds
-    :initial_angle: int in degrees
+    :init_velocity: float in meters over seconds
+    :init_angle: int in degrees
     :total_time: float in seconds
     :return: float in meters
     """
-    return initial_velocity * m.cos(m.radians(initial_angle)) * total_time
+    return init_velocity * m.cos(m.radians(init_angle)) * total_time
 
 def if_hit(final_x, wanted_x, range=50):
     """
@@ -51,9 +51,9 @@ def getting_enemy_position_x(range=(100, 800)):
     """
     return randint(range[0], range[1])
 
-def animation(initial_angle, initial_velocity, enemy_x, resolution=(1000, 600), fps=60):
-    total_time = finding_total_time(initial_velocity, initial_angle)
-    final_x = calculating_final_x(initial_velocity, initial_angle, total_time)
+def animation(init_angle, init_velocity, enemy_x, resolution=(1000, 600), fps=60):
+    total_time = finding_total_time(init_velocity, init_angle)
+    final_x = calculating_final_x(init_velocity, init_angle, total_time)
     won = if_hit(final_x, enemy_x, range=10)
     pygame.init()
     gameDisplay = pygame.display.set_mode(resolution)
@@ -63,7 +63,7 @@ def animation(initial_angle, initial_velocity, enemy_x, resolution=(1000, 600), 
     clock = pygame.time.Clock()
 
     for time_point in range(0, int(total_time * fps + 1)):
-        x, y = position(time_point / fps, initial_velocity, initial_angle)
+        x, y = position(time_point / fps, init_velocity, init_angle)
         pygame.draw.rect(gameDisplay, (255, 0, 0), pygame.Rect(enemy_x, 500, 10, 10))
         pygame.draw.rect(gameDisplay, black, pygame.Rect(x, 500 - y, 20, 20))
         print(x, y)
@@ -112,7 +112,7 @@ def game(fps=60):
                     else:
                         Score -= 100
                     for time_point in range(0, int(total_time * fps + 1)):
-                        x, y = position(time_point / fps, initial_velocity, initial_angle)
+                        x, y = position(time_point / fps, init_velocity, init_angle)
                         pygame.draw.rect(gameDisplay, (255, 0, 0), pygame.Rect(enemy_x, 500, 10, 10))
                         pygame.draw.rect(gameDisplay, black, pygame.Rect(x, 500 - y, 20, 20))
                         clock.tick(fps)
