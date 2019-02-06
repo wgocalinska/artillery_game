@@ -2,10 +2,8 @@ import math as m
 import pygame
 from random import randint
 
-
 def position(time, initial_velocity, initial_angle, gravity_acceleration=9.81):
     """
-
     :time: float, in seconds
     :initial_velocity: float, in meters over seconds
     :initial_angle: int, in degrees
