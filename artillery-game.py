@@ -73,7 +73,7 @@ def animation(init_angle, init_velocity, enemy_x, resolution=(1000, 600), fps=60
     pygame.quit()
     return won
 
-def game(fps=60):
+def game(fps=24):
     black, white, red = (0, 0, 0), (255, 255, 255), (255, 0, 0)
     pygame.init()
     pygame.font.init()
